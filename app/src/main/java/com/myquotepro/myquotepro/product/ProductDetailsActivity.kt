@@ -1,11 +1,13 @@
 package com.myquotepro.myquotepro.product
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import android.widget.ProgressBar
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -17,12 +19,19 @@ import kotlinx.android.synthetic.main.activity_product_details.*
 import org.json.JSONArray
 
 class ProductDetailsActivity : AppCompatActivity() {
+    private var pd: ProgressDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Fresco.initialize(this)
         setContentView(R.layout.activity_product_details)
 
+        pd = ProgressDialog(this@ProductDetailsActivity)
+
         val productId = intent.getStringExtra("product_id")
+
+        pd!!.setMessage("Processing ...")
+        pd!!.show()
+
         val queue = Volley.newRequestQueue(this)
         val url: String = "http://18.235.150.50/quotepro/api/products/product-details?id=$productId"
 
@@ -30,6 +39,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         val productDetails = StringRequest(
             Request.Method.GET, url,
             Response.Listener<String> { response ->
+                pd!!.hide()
                 val jsonArray = JSONArray(response)
                 for (i in 0 until jsonArray.length()) {
                     product_name.text = jsonArray.getJSONObject(i).getString("product_name")
@@ -91,11 +101,14 @@ class ProductDetailsActivity : AppCompatActivity() {
                         }
                     }
                     request_quote.setOnClickListener {
+                        pd!!.hide()
                         startActivity(Intent(this@ProductDetailsActivity, RequestQuoteActivity::class.java))
                     }
                 }
             },
-            Response.ErrorListener { })
+            Response.ErrorListener {
+                pd!!.hide()
+            })
         queue.add(productDetails)
     }
 }

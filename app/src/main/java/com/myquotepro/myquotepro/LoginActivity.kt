@@ -54,7 +54,8 @@ class LoginActivity : AppCompatActivity() {
         // Login button click event
         email_sign_in_button.setOnClickListener {
 
-            pd!!.setMessage("Processing ...")
+            pd!!.setTitle("Authenticating")
+            pd!!.setMessage("Attempting to login...")
 
             pd!!.show()
 

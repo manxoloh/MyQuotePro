@@ -180,9 +180,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
     }
-    git add --all
-    git commit -am "First commit"
-    git push
     /**
      * Receiving speech input.
      *
