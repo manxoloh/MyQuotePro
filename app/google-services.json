@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "582276157710",
+    "firebase_url": "https://myquotepro-9d3a2.firebaseio.com",
+    "project_id": "myquotepro-9d3a2",
+    "storage_bucket": "myquotepro-9d3a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582276157710:android:7a70caef4bacec75",
+        "android_client_info": {
+          "package_name": "com.myquotepro.myquotepro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582276157710-idfg2r9s4a3fq83nju7l62q0ephml26h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myquotepro.myquotepro",
+            "certificate_hash": "fb4e0d737a1ed465c07a136d3818269d4722cef2"
+          }
+        },
+        {
+          "client_id": "582276157710-4v15uo98tc2u2jmllhkthn0535k5j60b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiOF68h4IioNm-dPDAD15sTPsif77KAcI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582276157710-4v15uo98tc2u2jmllhkthn0535k5j60b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
