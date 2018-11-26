@@ -60,7 +60,7 @@ class SupplierSignupActivity : AppCompatActivity() {
     private var usertype = "Supplier"
     private var signup: Button? = null
     private var pd: ProgressDialog? = null
-    private val URL = "http://18.235.150.50/quotepro/api/user/signup"
+    private val URL = "http://18.235.150.50/myquotepro/api/user/signup"
 
 
     private var mRegistrationBroadcastReceiver: BroadcastReceiver? = null

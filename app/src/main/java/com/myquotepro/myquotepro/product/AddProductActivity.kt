@@ -31,7 +31,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     private var price: EditText? = null
     private var addProduct: Button? = null
     private var pd: ProgressDialog? = null
-    private val URL = "http://18.235.150.50/quotepro/api/products/add-product"
+    private val URL = "http://18.235.150.50/myquotepro/api/products/add-product"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         val spinner: Spinner = findViewById(R.id.product_category)
 
         val queue = Volley.newRequestQueue(this)
-        val url: String = "http://18.235.150.50/quotepro/api/products/categories"
+        val url: String = "http://18.235.150.50/myquotepro/api/products/categories"
 
         // Request a string response from the provided URL.
         val category = StringRequest(

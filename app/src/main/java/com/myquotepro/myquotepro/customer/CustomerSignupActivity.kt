@@ -49,7 +49,7 @@ class CustomerSignupActivity : AppCompatActivity() {
     private var usertype = "Customer"
     private var signup: Button? = null
     private var pd: ProgressDialog? = null
-    private val URL = "http://18.235.150.50/quotepro/api/user/signup"
+    private val URL = "http://18.235.150.50/myquotepro/api/user/signup"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

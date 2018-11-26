@@ -90,4 +90,7 @@
     </string>
     <string name="googlepay_status_checking" translatable="false">Checking if Google Pay is available...</string>
     <string name="payments_show_name" translatable="false">Successfully received payment data for %s!</string>
+    <string name="quantity">Quantity</string>
+    <string name="unit_cost">Unit Cost</string>
+    <string name="total_amount">Total Amount</string>
 </resources>

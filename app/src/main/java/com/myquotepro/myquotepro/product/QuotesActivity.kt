@@ -21,7 +21,7 @@ class QuotesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qoutes)
         val queue = Volley.newRequestQueue(this)
-        val url: String = "http://18.235.150.50/quotepro/api/products/list"
+        val url: String = "http://18.235.150.50/myquotepro/api/products/list"
 
         // Request a string response from the provided URL.
         val requestedQuotes = StringRequest(

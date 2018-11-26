@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
             pd!!.show()
 
             val queue = Volley.newRequestQueue(this@LoginActivity)
-            val url: String = "http://18.235.150.50/quotepro/api/user/login"
+            val url: String = "http://18.235.150.50/myquotepro/api/user/login"
 
             val response: String? = null
 

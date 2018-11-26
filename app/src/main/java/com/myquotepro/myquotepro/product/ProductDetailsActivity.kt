@@ -33,7 +33,7 @@ class ProductDetailsActivity : AppCompatActivity() {
         pd!!.show()
 
         val queue = Volley.newRequestQueue(this)
-        val url: String = "http://18.235.150.50/quotepro/api/products/product-details?id=$productId"
+        val url: String = "http://18.235.150.50/myquotepro/api/products/product-details?id=$productId"
 
         // Request a string response from the provided URL.
         val productDetails = StringRequest(

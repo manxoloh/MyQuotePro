@@ -41,7 +41,7 @@ class TabFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val queue = Volley.newRequestQueue(activity)
-        val url: String = "http://18.235.150.50/quotepro/api/products/list?cat=$position"
+        val url: String = "http://18.235.150.50/myquotepro/api/products/list?cat=$position"
 
         // Request a string response from the provided URL.
         val productsRecords = StringRequest(Request.Method.GET, url,

@@ -20,7 +20,7 @@ class SuppliersActivity : AppCompatActivity() {
         setContentView(R.layout.activity_suppliers)
 
         val queue = Volley.newRequestQueue(this)
-        val url: String = "http://18.235.150.50/quotepro/api/user/suppliers"
+        val url: String = "http://18.235.150.50/myquotepro/api/user/suppliers"
 
         // Request a string response from the provided URL.
         val suppliersRecords = StringRequest(Request.Method.GET, url,

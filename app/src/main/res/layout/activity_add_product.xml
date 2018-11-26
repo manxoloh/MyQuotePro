@@ -29,6 +29,7 @@
 
                 <EditText
                         android:id="@+id/product_name"
+                        android:fontFamily="sans-serif-light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/product_name"
@@ -40,6 +41,7 @@
 
             <TextView
                     android:id="@+id/product_category_text_view"
+                    android:fontFamily="sans-serif-light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/product_category"
@@ -57,6 +59,7 @@
 
                 <EditText
                         android:id="@+id/description"
+                        android:fontFamily="sans-serif-light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/description"
@@ -72,6 +75,7 @@
 
                 <EditText
                         android:id="@+id/stock"
+                        android:fontFamily="sans-serif-light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/stock"
@@ -87,6 +91,7 @@
 
                 <EditText
                         android:id="@+id/price"
+                        android:fontFamily="sans-serif-light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/price"
