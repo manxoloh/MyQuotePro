@@ -2,7 +2,6 @@ package com.myquotepro.myquotepro.supplier
 
 import android.app.Activity
 import android.app.ProgressDialog
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -63,7 +62,6 @@ class SupplierSignupActivity : AppCompatActivity() {
     private val URL = "http://18.235.150.50/myquotepro/api/user/signup"
 
 
-    private var mRegistrationBroadcastReceiver: BroadcastReceiver? = null
     private var mSharedPrefsUtil: SharedPrefsUtil? = null
     private var mApiClient: ApiClient? = null
 
@@ -162,7 +160,8 @@ class SupplierSignupActivity : AppCompatActivity() {
                     pd!!.hide()
                     var success = JSONObject(response).getString("success")
                     if (Integer.valueOf(success) == 1) {
-                        performSTKPush(phone?.text.toString())
+                        makePayment(JSONObject(response).getString("user"))
+                        //performSTKPush(phone?.text.toString())
                     } else {
                         Toast.makeText(applicationContext, JSONObject(response).getString("message"), Toast.LENGTH_LONG)
                             .show()
@@ -246,6 +245,30 @@ class SupplierSignupActivity : AppCompatActivity() {
             }
         })
     }
+
+    fun makePayment(payee_id: String) {
+
+        pd!!.setMessage("Processing Payment...")
+        pd!!.show()
+
+        val requestQueue = Volley.newRequestQueue(this@SupplierSignupActivity)
+        val url: String = "http://18.235.150.50/myquotepro/api/user/payment?payee_id=1"
+
+        // Request a string response from the provided URL.
+        val requestQuote = StringRequest(
+            Request.Method.GET, url,
+            Response.Listener<String> { requestResponse ->
+                pd!!.hide()
+                Toast.makeText(applicationContext, JSONObject(requestResponse).getString("message"), Toast.LENGTH_LONG)
+                    .show()
+            },
+            Response.ErrorListener {
+                Toast.makeText(applicationContext, "Failed", Toast.LENGTH_LONG).show()
+                pd!!.hide()
+            })
+        requestQueue.add(requestQuote)
+    }
+
 
     fun performSTKPush(phone_number: String) {
         pd!!.setMessage("Launching MPESA Menu")

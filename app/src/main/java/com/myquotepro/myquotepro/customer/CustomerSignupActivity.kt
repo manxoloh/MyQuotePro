@@ -10,7 +10,6 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.util.Base64
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -29,7 +28,6 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.myquotepro.myquotepro.MainActivity
 import com.myquotepro.myquotepro.R
 import de.hdodenhof.circleimageview.CircleImageView
-import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 
 class CustomerSignupActivity : AppCompatActivity() {
@@ -53,7 +51,7 @@ class CustomerSignupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_supplier_signup)
+        setContentView(R.layout.activity_customer_signup)
         pd = ProgressDialog(this@CustomerSignupActivity)
         username = findViewById(R.id.username)
         password = findViewById(R.id.password)
@@ -175,17 +173,6 @@ class CustomerSignupActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun convertBitmapToString(profilePicture: Bitmap) {
-        /*
-                Base64 encoding requires a byte array, the bitmap image cannot be converted directly into a byte array.
-                so first convert the bitmap image into a ByteArrayOutputStream and then convert this stream into a byte array.
-            */
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        profilePicture.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream)
-        val array = byteArrayOutputStream.toByteArray()
-        profile = Base64.encodeToString(array, Base64.DEFAULT)
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

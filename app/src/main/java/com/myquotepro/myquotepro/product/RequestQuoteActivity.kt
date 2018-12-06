@@ -22,7 +22,6 @@ import com.myquotepro.myquotepro.sessions.UserSession
 import org.json.JSONObject
 
 class RequestQuoteActivity : AppCompatActivity() {
-    private var product_id: EditText? = null
     private var quantity: EditText? = null
     private var unit_cost: EditText? = null
     private var total_amount: EditText? = null
@@ -34,7 +33,6 @@ class RequestQuoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_quote)
         pd = ProgressDialog(this@RequestQuoteActivity)
-        product_id = findViewById(R.id.product_id)
         quantity = findViewById(R.id.quantity)
         unit_cost = findViewById(R.id.unit_cost)
         total_amount = findViewById(R.id.total_amount)
@@ -97,7 +95,7 @@ class RequestQuoteActivity : AppCompatActivity() {
                     // get user data from session
                     val user = UserSession(applicationContext).userDetails
 
-                    params["product_id"] = product_id?.text.toString()
+                    params["product_id"] = intent.getStringExtra("product_id")
                     params["quantity"] = quantity?.text.toString()
                     params["unit_cost"] = unit_cost?.text.toString()
                     params["total_amount"] = total_amount?.text.toString()

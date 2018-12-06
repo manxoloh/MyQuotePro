@@ -1,9 +1,11 @@
 package com.myquotepro.myquotepro
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.EditText
@@ -32,109 +34,111 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        handleIntent(intent)
 
-        pd = ProgressDialog(this@LoginActivity)
-        // Get username, password from EditText
-        email = findViewById(R.id.email)
-        password = findViewById(R.id.password)
+        if (UserSession(applicationContext).isLoggedIn) {
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        } else {
+            pd = ProgressDialog(this@LoginActivity)
+            // Get username, password from EditText
+            email = findViewById(R.id.email)
+            password = findViewById(R.id.password)
 
-        //email_sign_in_button.setOnClickListener { attemptLogin() }
-        supplier_sign_up.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, SupplierSignupActivity::class.java))
-        }
-        customer_sign_up.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, CustomerSignupActivity::class.java))
-        }
-
-        // Session Manager
-        session = UserSession(applicationContext)
-
-
-        // Login button click event
-        email_sign_in_button.setOnClickListener {
-
-            pd!!.setTitle("Authenticating")
-            pd!!.setMessage("Attempting to login...")
-
-            pd!!.show()
-
-            val queue = Volley.newRequestQueue(this@LoginActivity)
-            val url: String = "http://18.235.150.50/myquotepro/api/user/login"
-
-            val response: String? = null
-
-            val finalResponse = response
-
-            val postRequest = object : StringRequest(
-                Request.Method.POST, url,
-                Response.Listener<String> { response ->
-                    pd!!.hide()
-                    val jsonObject = JSONObject(response)
-                    if (jsonObject.getString("success").toInt() == 1) {
-                        val userData = JSONObject(jsonObject.getString("data"))
-
-                        // Check if username, password is filled
-                        session.createLoginSession(
-                            userData.getString("id"),
-                            userData.getString("firstname") + " " + userData.getString("lastname"),
-                            userData.getString("email"),
-                            userData.getString("phone")
-                        )
-
-                        // Staring MainActivity
-                        val i = Intent(applicationContext, MainActivity::class.java)
-                        startActivity(i)
-                        finish()
-
-                        Toast.makeText(applicationContext, jsonObject.getString("message"), Toast.LENGTH_LONG).show()
-                    } else {
-                        Toast.makeText(applicationContext, jsonObject.getString("message"), Toast.LENGTH_LONG).show()
-                    }
-
-
-                },
-                Response.ErrorListener {
-                    pd!!.hide()
-                    Log.d("ErrorResponse", finalResponse)
-                }
-            ) {
-                override fun getParams(): Map<String, String> {
-                    //Creating HashMap
-                    val params = HashMap<String, String>()
-                    params["username"] = email?.text.toString()
-                    params["password"] = password?.text.toString()
-
-
-                    return params
-                }
+            //email_sign_in_button.setOnClickListener { attemptLogin() }
+            supplier_sign_up.setOnClickListener {
+                startActivity(Intent(this@LoginActivity, SupplierSignupActivity::class.java))
             }
-            postRequest.retryPolicy = DefaultRetryPolicy(
-                0,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-            )
+            customer_sign_up.setOnClickListener {
+                startActivity(Intent(this@LoginActivity, CustomerSignupActivity::class.java))
+            }
 
-            queue.add(postRequest)
-        }
-    }
+            // Session Manager
+            session = UserSession(applicationContext)
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        handleIntent(intent)
-    }
 
-    private fun handleIntent(intent: Intent) {
-        val appLinkAction = intent.action
-        val appLinkData: Uri? = intent.data
-        if (Intent.ACTION_VIEW == appLinkAction) {
-            appLinkData?.lastPathSegment?.also { recipeId ->
-                Uri.parse("content://com.recipe_app/recipe/")
-                    .buildUpon()
-                    .appendPath(recipeId)
-                    .build().also { appData ->
-                        //showRecipe(appData)
+            // Login button click event
+            email_sign_in_button.setOnClickListener {
+                val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                val activeNetwork = cm.activeNetworkInfo
+                val isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting
+
+                if (!isConnected) {
+                    val snackbar =
+                        Snackbar.make(
+                            findViewById(R.id.login_card_view),
+                            "You have no internet connection",
+                            Snackbar.LENGTH_LONG
+                        )
+                            .setAction("Action", null)
+                    snackbar.duration = 10000
+                    snackbar.setAction(R.string.connect_to_internet, MainActivity.EnableInternetConnection())
+                    snackbar.show()
+                } else {
+                    pd!!.setTitle("Authenticating")
+                    pd!!.setMessage("Attempting to login...")
+
+                    pd!!.show()
+
+                    val queue = Volley.newRequestQueue(this@LoginActivity)
+                    val url: String = "http://18.235.150.50/myquotepro/api/user/login"
+
+                    val response: String? = null
+
+                    val finalResponse = response
+
+                    val postRequest = object : StringRequest(
+                        Request.Method.POST, url,
+                        Response.Listener<String> { response ->
+                            pd!!.hide()
+                            val jsonObject = JSONObject(response)
+                            if (jsonObject.getString("success").toInt() == 1) {
+                                val userData = JSONObject(jsonObject.getString("data"))
+
+                                // Check if username, password is filled
+                                session.createLoginSession(
+                                    userData.getString("id"),
+                                    userData.getString("usertype"),
+                                    userData.getString("firstname") + " " + userData.getString("lastname"),
+                                    userData.getString("email"),
+                                    userData.getString("phone")
+                                )
+
+                                // Staring MainActivity
+                                val i = Intent(applicationContext, MainActivity::class.java)
+                                startActivity(i)
+                                finish()
+
+                                Toast.makeText(applicationContext, jsonObject.getString("message"), Toast.LENGTH_LONG)
+                                    .show()
+                            } else {
+                                Toast.makeText(applicationContext, jsonObject.getString("message"), Toast.LENGTH_LONG)
+                                    .show()
+                            }
+
+
+                        },
+                        Response.ErrorListener {
+                            pd!!.hide()
+                            Log.d("ErrorResponse", finalResponse)
+                        }
+                    ) {
+                        override fun getParams(): Map<String, String> {
+                            //Creating HashMap
+                            val params = HashMap<String, String>()
+                            params["username"] = email?.text.toString()
+                            params["password"] = password?.text.toString()
+
+
+                            return params
+                        }
                     }
+                    postRequest.retryPolicy = DefaultRetryPolicy(
+                        0,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+                    )
+
+                    queue.add(postRequest)
+                }
             }
         }
     }

@@ -2,32 +2,18 @@
 <resources>
     <color name="colorPrimary">#18b6d9</color>
     <color name="colorPrimaryDark">#128EA8</color>
-    <color name="colorButton">#18b6d9</color>
-    <color name="colorPrimaryLight">#b3e5fc</color>
     <color name="colorAccent">#00BCD4</color>
     <color name="primary_text">#212121</color>
-    <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
-    <color name="divider">#BDBDBD</color>
-    <color name="colorBackground">#e1f5fe</color>
-    <color name="cardviewBackground">#F2F5FA</color>
-    <color name="menuBackground">#40555A</color>
-    <color name="menuText">#6d8287</color>
-    <color name="navTop">#1f5d6a</color>
-    <color name="fab">#cbcbcb</color>
     <color name="colorLightGray">#a6abae</color>
     <color name="colorBackroundWhite">#f0f2ea</color>
     <color name="colorGray">#495C67</color>
-    <color name="lightPink">#ab47bc</color>
     <color name="darkPink">#8e24aa</color>
-    <color name="lightOrange">#ffa726</color>
     <color name="darkOrange">#fb8c00</color>
-    <color name="lightRed">#ef5350</color>
     <color name="darkRed">#e53935</color>
     <color name="lightBlue">#26c6da</color>
     <color name="darkBlue">#00acc1</color>
     <color name="lightGreen">#66bb6a</color>
-    <color name="DarkGreen">#43a047</color>
     <color name="colorWhite">#fff</color>
     <color name="success">#ff669900</color>
 
@@ -37,13 +23,10 @@
     <color name="grey_light">#E0E0E0</color>
 
     <!-- Screens background color-->
-    <color name="bg_screen1">#87ceeb</color>
 
     <!-- dots inactive colors -->
-    <color name="dot_dark_screen1">#FFFFFF</color>
 
     <!-- dots active colors -->
-    <color name="dot_light_screen1">#00bfff</color>
 
     <!-- Placeholder colors-->
     <color name="stay_color">#999999</color>

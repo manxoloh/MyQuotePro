@@ -1,12 +1,16 @@
 package com.myquotepro.myquotepro.product
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -15,11 +19,16 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.myquotepro.myquotepro.MainActivity
 import com.myquotepro.myquotepro.R
 import com.myquotepro.myquotepro.sessions.UserSession
+import com.myquotepro.myquotepro.util.ImageUploadActivity
+import kotlinx.android.synthetic.main.activity_add_product.*
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.ByteArrayOutputStream
+import java.io.IOException
 
 
 class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -31,10 +40,12 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     private var price: EditText? = null
     private var addProduct: Button? = null
     private var pd: ProgressDialog? = null
+    internal lateinit var bitmap: Bitmap
     private val URL = "http://18.235.150.50/myquotepro/api/products/add-product"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Fresco.initialize(this)
         setContentView(R.layout.activity_add_product)
         pd = ProgressDialog(this@AddProductActivity)
         productName = findViewById(R.id.product_name)
@@ -45,38 +56,61 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
         val spinner: Spinner = findViewById(R.id.product_category)
 
-        val queue = Volley.newRequestQueue(this)
-        val url: String = "http://18.235.150.50/myquotepro/api/products/categories"
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = cm.activeNetworkInfo
+        val isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting
 
-        // Request a string response from the provided URL.
-        val category = StringRequest(
-            Request.Method.GET, url,
-            Response.Listener<String> { response ->
-                val jsonArray = JSONArray(response)
-                // Spinner Drop down elements
-                val categories = ArrayList<String>()
-                for (i in 0 until jsonArray.length()) {
-                    categories.add(jsonArray.getJSONObject(i).getString("category_name"))
-                }
+        if (!isConnected) {
+            val snackbar =
+                Snackbar.make(findViewById(R.id.user_account), "You have no internet connection", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+            snackbar.duration = 10000
+            snackbar.setAction(R.string.connect_to_internet, MainActivity.EnableInternetConnection())
+            snackbar.show()
+        } else {
+            val queue = Volley.newRequestQueue(this)
+            val url: String = "http://18.235.150.50/myquotepro/api/products/categories"
 
-                // Creating adapter for spinner
-                val dataAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+            // Request a string response from the provided URL.
+            val category = StringRequest(
+                Request.Method.GET, url,
+                Response.Listener<String> { response ->
+                    val jsonArray = JSONArray(response)
+                    // Spinner Drop down elements
+                    val categories = ArrayList<String>()
+                    for (i in 0 until jsonArray.length()) {
+                        categories.add(jsonArray.getJSONObject(i).getString("category_name"))
+                    }
 
-                // Drop down layout style - list view with radio button
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    // Creating adapter for spinner
+                    val dataAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
 
-                // attaching data adapter to spinner
-                spinner.adapter = dataAdapter
+                    // Drop down layout style - list view with radio button
+                    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-                spinner.onItemSelectedListener = this
+                    // attaching data adapter to spinner
+                    spinner.adapter = dataAdapter
 
-            },
-            Response.ErrorListener { })
-        queue.add(category)
+                    spinner.onItemSelectedListener = this
+
+                },
+                Response.ErrorListener { })
+            queue.add(category)
 
 
-        addProduct?.setOnClickListener {
-            addProduct()
+            addProduct?.setOnClickListener {
+                addProduct()
+            }
+        }
+
+        featured_image.setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(
+                Intent.createChooser(intent, "Select Picture"),
+                ImageUploadActivity.PICK_IMAGE_REQUEST
+            )
         }
     }
 
@@ -149,6 +183,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
                     params["stock"] = stock?.text.toString()
                     params["supplier"] = user[UserSession.KEY_USERID].toString()
                     params["updated_by"] = user[UserSession.KEY_USERID].toString()
+                    params["image"] = getStringImage(bitmap)
 
                     return params
                 }
@@ -164,11 +199,27 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         }
     }
 
-    //Method for clear Text After Sending Data to the server
-    private fun remove() {
-        productName?.text?.clear()
-        description?.text?.clear()
-        price?.text?.clear()
-        stock?.text?.clear()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == ImageUploadActivity.PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+            val filePath = data.data
+            try {
+                //Getting the Bitmap from Gallery
+                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+                Toast.makeText(this@AddProductActivity, "" + bitmap, Toast.LENGTH_SHORT).show()
+                //Setting the Bitmap to ImageView
+                featured_image.setImageBitmap(bitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+        }
+    }
+    fun getStringImage(bitmap: Bitmap): String {
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val imageBytes = baos.toByteArray()
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT)
     }
 }

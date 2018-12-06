@@ -11,13 +11,18 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.myquotepro.myquotepro.search.CustomSearchAdapter
-import com.myquotepro.myquotepro.search.StoresData
 import kotlinx.android.synthetic.main.activity_search_result.*
+import org.json.JSONArray
+import java.util.*
 
 
 class SearchResultActivity : AppCompatActivity() {
-
+    private var stores: MutableList<String>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result)
@@ -63,7 +68,7 @@ class SearchResultActivity : AppCompatActivity() {
             val adapter = CustomSearchAdapter(
                 this,
                 android.R.layout.simple_dropdown_item_1line,
-                StoresData.filterData(searchQuery)
+                filterData(searchQuery)
             )
             listView.adapter = adapter
 
@@ -76,5 +81,38 @@ class SearchResultActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+    fun filterData(searchString: String?): List<String> {
+        var searchString = searchString
+        val searchResults = ArrayList<String>()
+        if (searchString != null) {
+            searchString = searchString.toLowerCase()
+
+            stores = ArrayList()
+
+            val queue = Volley.newRequestQueue(this@SearchResultActivity)
+            val url: String = "http://18.235.150.50/myquotepro/api/products/list?cat=1"
+
+            // Request a string response from the provided URL.
+            val productsRecords = StringRequest(Request.Method.GET, url,
+                Response.Listener { response ->
+                    val jsonArray = JSONArray(response)
+                    for (i in 0 until jsonArray.length()) {
+                        stores!!.add(jsonArray.getJSONObject(i).getString("product_name"))
+                    }
+
+                }, Response.ErrorListener { })
+            queue.add(productsRecords)
+
+            Toast.makeText(this@SearchResultActivity, "" + stores, Toast.LENGTH_SHORT).show()
+
+            for (rec in stores!!) {
+                if (rec.toLowerCase().contains(searchString)) {
+                    searchResults.add(rec)
+                }
+            }
+        }
+        return searchResults
     }
 }

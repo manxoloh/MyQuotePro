@@ -1,13 +1,23 @@
 package com.myquotepro.myquotepro.adapters
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.myquotepro.myquotepro.R
 import com.myquotepro.myquotepro.models.ProductsModel
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.AsyncTask
+import android.util.Log
+import android.os.AsyncTask.execute
+import com.squareup.picasso.Picasso
+
 
 class ProductsAdapter(context: Context, product: ArrayList<ProductsModel>) : BaseAdapter() {
 
@@ -46,9 +56,12 @@ class ProductsAdapter(context: Context, product: ArrayList<ProductsModel>) : Bas
         daftar.price.text = product[position].price
         daftar.supplier.text = product[position].supplier
         daftar.location.text = product[position].location
-        //daftar.image.ImageView = product[position].image
+        val image = daftar.featuredImage
+        Glide.with(parent).load(product[position].featured_image).into(image)
+
         return view
     }
+
 }
 
 private class ProductRowHolder(row: View?) {
@@ -60,6 +73,7 @@ private class ProductRowHolder(row: View?) {
     val price: TextView = row?.findViewById(R.id.item_price) as TextView
     val supplier: TextView = row?.findViewById(R.id.item_supplier) as TextView
     val location: TextView = row?.findViewById(R.id.item_location) as TextView
-    //val image: ImageView = row?.findViewById(R.id.product_thumb) as ImageView
+    val image: ImageView = row?.findViewById(R.id.product_thumb) as ImageView
+    val featuredImage: ImageView = row?.findViewById(R.id.product_thumb) as ImageView
 
 }

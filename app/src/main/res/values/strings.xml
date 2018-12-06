@@ -2,51 +2,27 @@
     <string name="app_name">MyQuotePro</string>
     <!-- Strings related to login -->
     <string name="prompt_username">Username</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Erick Gesture</string>
     <string name="nav_header_subtitle">erick@gmail.com</string>
-    <string name="nav_header_desc">Navigation header</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
-    <string name="search_results">Search Results</string>
     <string name="action_notifications">Notifications</string>
     <string name="action_logout">Logout</string>
 
-    <string name="offers">Offers</string>
-    <string name="electronics">Electronics</string>
-    <string name="lifestyle">Lifestyle</string>
-    <string name="appliances">Home Appliances</string>
-    <string name="books_and_more">Books \u0026 More</string>
-    <string name="stationery">Stationery</string>
-    <string name="others">Others</string>
-
-    <string name="my_profile">Profile</string>
     <string name="my_quotes">Qoutes</string>
     <string name="suppliers">Suppliers</string>
     <string name="my_account">Account</string>
+    <string name="my_payments">Payments</string>
 
     <string name="help_support">Help \u0026 Support</string>
-    <string name="contact_us">Contact Us</string>
     <string name="terms_conditions">Terms \u0026 Conditions</string>
     <string name="help_center">Help Center</string>
     <string name="share">Share</string>
 
     <string name="search_hint">What are you looking for?</string>
-    <string name="deal_of_the_day">Deal of the day</string>
     <string name="daily_promotions">Daily promotions</string>
     <string name="coming_soon">Coming Soon</string>
     <string name="connect_to_internet">Connect</string>
@@ -70,27 +46,11 @@
     <string name="call_for_action">CONTACT SUPPLIER</string>
     <string name="ask_for_quote">REQUEST QUOTE</string>
     <string name="product_details">Product Details</string>
-    <string name="supplier_contact_phone">0704400725</string>
-    <string name="supplier_name">Erick Gesure</string>
-    <string name="supplier_location">Nairobi</string>
-    <string name="available">Available</string>
-    <string name="remaining_stock">20 Pieces Remaining</string>
+    <string name="credit_card_payment">Credit Card Payment</string>
     <string name="request_quote">Request Quote</string>
     <string name="product_more_details">More Details</string>
-    <string name="checkout_dialog_title">Enter Phone Number</string>
-    <string name="asset_statements" translatable="false">[{ \"include\":
-        \"https://18.235.150.50/.well-known/assetlinks.json\" }]
-    </string>
-    <string name="googlepay_button_content_description" translatable="false">Google Pay</string>
-    <string name="buy_with_googlepay_button_content_description" translatable="false">Buy with Google Pay</string>
-    <string name="save_to_googlepay_button_content_description" translatable="false">Save to Google Pay</string>
-    <string name="add_to_googlepay_button_content_description" translatable="false">Add to Google Pay</string>
-    <string name="googlepay_status_unavailable" translatable="false">Unfortunately, Google Pay is not available on this
-        phone.
-    </string>
-    <string name="googlepay_status_checking" translatable="false">Checking if Google Pay is available...</string>
-    <string name="payments_show_name" translatable="false">Successfully received payment data for %s!</string>
     <string name="quantity">Quantity</string>
     <string name="unit_cost">Unit Cost</string>
     <string name="total_amount">Total Amount</string>
+    <string name="label_pay_now">Pay Now</string>
 </resources>

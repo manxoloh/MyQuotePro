@@ -9,5 +9,5 @@ class ProductsModel(
     var price: String,
     var supplier: String,
     var location: String,
-    var image: String
+    var featured_image: String
 )

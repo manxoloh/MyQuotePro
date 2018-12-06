@@ -4,52 +4,24 @@
       tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-                android:id="@+id/nav_item1"
-                android:icon="@drawable/ic_local_offer_black_24dp"
-                android:title="@string/offers"/>
-        <item
-                android:id="@+id/nav_item2"
-                android:icon="@drawable/ic_smartphone_black_24dp"
-                android:title="@string/electronics"/>
-        <item
-                android:id="@+id/nav_item3"
-                android:icon="@drawable/ic_wc_black_24dp"
-                android:title="@string/lifestyle"/>
-        <item
-                android:id="@+id/nav_item4"
-                android:icon="@drawable/ic_local_dining_black_24dp"
-                android:title="@string/appliances"/>
-        <item
-                android:id="@+id/nav_item5"
-                android:icon="@drawable/ic_book_black_24dp"
-                android:title="@string/books_and_more"/>
-        <item
-                android:id="@+id/nav_item6"
-                android:icon="@drawable/ic_more_black_24dp"
-                android:title="@string/stationery"/>
-        <item
-                android:id="@+id/nav_item7"
-                android:icon="@drawable/ic_others"
-                android:title="@string/others"/>
-    </group>
 
-    <item android:title="@string/my_profile">
-        <menu>
-            <item
-                    android:id="@+id/quotes"
-                    android:icon="@drawable/ic_shopping_basket_black_24dp"
-                    android:title="@string/my_quotes"/>
-            <item
-                    android:id="@+id/suppliers"
-                    android:icon="@drawable/ic_suppliers"
-                    android:title="@string/suppliers"/>
-            <item
-                    android:id="@+id/my_account"
-                    android:icon="@drawable/ic_person_black_24dp"
-                    android:title="@string/my_account"/>
-        </menu>
-    </item>
+        <item
+                android:id="@+id/suppliers"
+                android:icon="@drawable/ic_suppliers"
+                android:title="@string/suppliers"/>
+        <item
+                android:id="@+id/payments"
+                android:icon="@drawable/ic_credit_card"
+                android:title="@string/my_payments"/>
+        <item
+                android:id="@+id/quotes"
+                android:icon="@drawable/ic_shopping_basket_black_24dp"
+                android:title="@string/my_quotes"/>
+        <item
+                android:id="@+id/my_account"
+                android:icon="@drawable/ic_person_black_24dp"
+                android:title="@string/my_account"/>
+    </group>
 
     <item android:title="@string/help_support">
         <menu>

@@ -31,8 +31,10 @@ class UserSession// Constructor
         get() {
             val user = HashMap<String, String>()
             user[KEY_USERID] = pref.getString(KEY_USERID, null)
+            user[KEY_USER_TYPE] = pref.getString(KEY_USER_TYPE, null)
             user[KEY_NAME] = pref.getString(KEY_NAME, null)
             user[KEY_EMAIL] = pref.getString(KEY_EMAIL, null)
+            user[KEY_PHONE] = pref.getString(KEY_PHONE, null)
             user[KEY_PHONE] = pref.getString(KEY_PHONE, null)
             return user
         }
@@ -52,12 +54,15 @@ class UserSession// Constructor
     /**
      * Create login session
      */
-    fun createLoginSession(userId: String, name: String, email: String, phone: String) {
+    fun createLoginSession(userId: String, userType: String, name: String, email: String, phone: String) {
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true)
 
         // Storing phone in pref
         editor.putString(KEY_USERID, userId)
+
+        // Storing phone in pref
+        editor.putString(KEY_USER_TYPE, userType)
 
         // Storing name in pref
         editor.putString(KEY_NAME, name)
@@ -121,17 +126,10 @@ class UserSession// Constructor
 
         // All Shared Preferences Keys
         private val IS_LOGIN = "IsLoggedIn"
-
-        // User name (make variable public to access from outside)
         val KEY_NAME = "name"
-
-        // Email address (make variable public to access from outside)
+        val KEY_USER_TYPE = "userType"
         val KEY_EMAIL = "email"
-
-        // Email address (make variable public to access from outside)
         val KEY_PHONE = "phone"
-
-        // Email address (make variable public to access from outside)
         val KEY_USERID = "userId"
     }
 }

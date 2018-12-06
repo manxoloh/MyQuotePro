@@ -17,10 +17,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.myquotepro.myquotepro.payments.PaymentsActivity
 import com.myquotepro.myquotepro.product.AddProductActivity
 import com.myquotepro.myquotepro.product.QuotesActivity
 import com.myquotepro.myquotepro.sessions.UserSession
 import com.myquotepro.myquotepro.supplier.SuppliersActivity
+import com.myquotepro.myquotepro.util.ImageUploadActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -46,10 +48,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         // Session class instance
         val userSession = UserSession(applicationContext)
-        userSession.checkLogin()
 
-        fab.setOnClickListener {
-            startActivity(Intent(this@MainActivity, AddProductActivity::class.java))
+        // get user data from session
+        val user = userSession.userDetails
+
+        if (user[UserSession.KEY_USER_TYPE] == "Supplier") {
+            fab.show()
+            fab.setOnClickListener {
+                startActivity(Intent(this@MainActivity, AddProductActivity::class.java))
+            }
         }
         global_search.setOnClickListener {
             startActivity(Intent(this@MainActivity, SearchResultActivity::class.java))
@@ -66,8 +73,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
 
         val header = nav_view.getHeaderView(0)
-        // get user data from session
-        val user = userSession.userDetails
+
         header.profile_username.text = user[UserSession.KEY_NAME]
         header.profile_email.text = user[UserSession.KEY_EMAIL]
     }
@@ -111,7 +117,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(Intent(this@MainActivity, SuppliersActivity::class.java))
             }
             R.id.quotes -> {
-                startActivity(Intent(this@MainActivity, QuotesActivity::class.java))
+                startActivity(Intent(this@MainActivity, ImageUploadActivity::class.java))
+            }
+            R.id.payments -> {
+                startActivity(Intent(this@MainActivity, PaymentsActivity::class.java))
             }
             R.id.help_center -> {
                 val intent = Intent(Intent.ACTION_CALL)
@@ -122,7 +131,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     ) != PackageManager.PERMISSION_GRANTED
                 ) {
                     ActivityCompat.requestPermissions(
-                        this,
+                        this@MainActivity,
                         arrayOf(android.Manifest.permission.CALL_PHONE), MainActivity.LOCATION_PERMISSION_REQUEST_CODE
                     )
                 } else {
@@ -180,6 +189,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
     }
+
     /**
      * Receiving speech input.
      *

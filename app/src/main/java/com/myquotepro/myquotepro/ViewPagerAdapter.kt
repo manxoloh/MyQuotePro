@@ -8,7 +8,6 @@ internal class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter
 
     private val title = arrayOf(
         "Promotions",
-        "Offers",
         "Electronics",
         "Lifestyle",
         "Home Appliances",
