@@ -7,18 +7,22 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.myquotepro.myquotepro.R
+import java.util.*
 
-class SuppliersAdapter(context: Context, supplier: ArrayList<SuppliersModel>) : BaseAdapter() {
+class SuppliersAdapter(context: Context) : BaseAdapter() {
+    private var inflater: LayoutInflater = LayoutInflater.from(context)
+    private val arrayList: ArrayList<SuppliersModel> = ArrayList()
 
-    private val mInflator: LayoutInflater = LayoutInflater.from(context)
-    private val supplier: ArrayList<SuppliersModel> = supplier
-
-    override fun getCount(): Int {
-        return supplier.size
+    init {
+        this.arrayList.addAll(SuppliersActivity.suppliersArrayList)
     }
 
-    override fun getItem(position: Int): Any {
-        return supplier[position]
+    override fun getCount(): Int {
+        return SuppliersActivity.suppliersArrayList.size
+    }
+
+    override fun getItem(position: Int): SuppliersModel {
+        return SuppliersActivity.suppliersArrayList[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -29,23 +33,41 @@ class SuppliersAdapter(context: Context, supplier: ArrayList<SuppliersModel>) : 
         val view: View?
         val daftar: PaymentsRowHolder
         if (convertView == null) {
-            view = this.mInflator.inflate(R.layout.suppliers_listview, parent, false)
+            view = this.inflater.inflate(R.layout.suppliers_listview, parent, false)
             daftar = PaymentsRowHolder(view)
             view.tag = daftar
         } else {
             view = convertView
             daftar = view.tag as PaymentsRowHolder
         }
-
-        daftar.name.text = supplier[position].name
-        daftar.status.text = supplier[position].status
-        daftar.phone.text = supplier[position].phone
-        daftar.email.text = supplier[position].email
-        daftar.invoiceNumber.text = supplier[position].invoiceNumber
-        daftar.transactionAmount.text = supplier[position].transactionAmount
-        daftar.transactionCode.text = supplier[position].transactionCode
+        // Set the results into TextViews
+        daftar.name.text = arrayList[position].name
+        daftar.status.text = arrayList[position].status
+        daftar.phone.text = arrayList[position].phone
+        daftar.email.text = arrayList[position].email
+        daftar.invoiceNumber.text = arrayList[position].invoiceNumber
+        daftar.transactionAmount.text = arrayList[position].transactionAmount
+        daftar.transactionCode.text = arrayList[position].transactionCode
         return view
     }
+
+    // Filter Class
+    fun filter(charText: String) {
+        var charText = charText
+        charText = charText.toLowerCase(Locale.getDefault())
+        SuppliersActivity.suppliersArrayList.clear()
+        if (charText.isEmpty()) {
+            SuppliersActivity.suppliersArrayList.addAll(arrayList)
+        } else {
+            for (supplier in arrayList) {
+                if (supplier.name.toLowerCase(Locale.getDefault()).contains(charText)) {
+                    SuppliersActivity.suppliersArrayList.add(supplier)
+                }
+            }
+        }
+        notifyDataSetChanged()
+    }
+
 }
 
 private class PaymentsRowHolder(row: View?) {

@@ -20,6 +20,7 @@ import android.widget.Toast
 import com.myquotepro.myquotepro.payments.PaymentsActivity
 import com.myquotepro.myquotepro.product.AddProductActivity
 import com.myquotepro.myquotepro.product.QuotesActivity
+import com.myquotepro.myquotepro.sessions.AccountActivity
 import com.myquotepro.myquotepro.sessions.UserSession
 import com.myquotepro.myquotepro.supplier.SuppliersActivity
 import com.myquotepro.myquotepro.util.ImageUploadActivity
@@ -58,12 +59,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(Intent(this@MainActivity, AddProductActivity::class.java))
             }
         }
-        global_search.setOnClickListener {
-            startActivity(Intent(this@MainActivity, SearchResultActivity::class.java))
-        }
-        audial_search.setOnClickListener {
-            promptSpeechInput()
-        }
+
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
@@ -146,6 +142,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 startActivity(sendIntent)
             }
+            R.id.account -> {
+                startActivity(Intent(this@MainActivity, AccountActivity::class.java))
+            }
             else -> startActivity(Intent(this@MainActivity, EmptyActivity::class.java))
         }
 
@@ -155,9 +154,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     companion object {
         const val LOCATION_PERMISSION_REQUEST_CODE = 1
-        private val RESULT_OK = -1
-        private val REQ_SCAN_RESULT = 200
-        private const val REQ_CODE_SPEECH_INPUT = 100
+        val RESULT_OK = -1
+        val REQ_SCAN_RESULT = 200
+        const val REQ_CODE_SPEECH_INPUT = 100
         internal var searchInProgress = false
     }
 
@@ -165,57 +164,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         override fun onClick(v: View) {
             android.Manifest.permission.INTERNET
         }
-    }
-
-    /**
-     * Showing google speech input dialog.
-     */
-    private fun promptSpeechInput() {
-
-        searchInProgress = true
-
-        audial_search_heading.text = "Deal of the day"
-        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        intent.putExtra(
-            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-        )
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "What are you looking for?")
-        try {
-            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT)
-        } catch (a: ActivityNotFoundException) {
-            Toast.makeText(this@MainActivity, "Voice search not supported by your device ", Toast.LENGTH_SHORT).show()
-        }
-
-    }
-
-    /**
-     * Receiving speech input.
-     *
-     * @param requestCode the request code
-     * @param resultCode  the result code
-     * @param data        the data
-     */
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        searchInProgress = false
-
-        if (resultCode == RESULT_OK && null != data) {
-            when (requestCode) {
-                REQ_CODE_SPEECH_INPUT -> {
-
-                    val result = data
-                        .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-
-                    audial_search_heading.text = "Search Results for " + result[0]
-                }
-                REQ_SCAN_RESULT -> {
-                }
-            }
-
-        }
-
     }
 }

@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent" android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+            android:id="@+id/search_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <SearchView
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_margin="5dp"
+                android:layout_toLeftOf="@+id/audial_search"
+                android:background="@color/colorAccent"
+                android:hapticFeedbackEnabled="true"
+                android:hint="@string/search_hint"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:fontFamily="sans-serif-light"
+                android:textSize="15sp"
+                android:iconifiedByDefault="false">
+
+            <requestFocus />
+        </SearchView>
+
+        <ImageButton
+                android:id="@+id/audial_search"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="3dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/audial_search"/>
+    </RelativeLayout>
+
+    <ListView
+            android:id="@+id/products_search_list_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/search" />
+</LinearLayout>

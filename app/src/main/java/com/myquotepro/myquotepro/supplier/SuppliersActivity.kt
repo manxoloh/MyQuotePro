@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
+import android.widget.SearchView
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response
@@ -17,7 +19,10 @@ import com.myquotepro.myquotepro.MainActivity
 import com.myquotepro.myquotepro.R
 import org.json.JSONArray
 
-class SuppliersActivity : AppCompatActivity() {
+class SuppliersActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+    private var suppliersListView: ListView? = null
+    private var suppliers: SuppliersAdapter? = null
+    private var editsearch: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +52,8 @@ class SuppliersActivity : AppCompatActivity() {
                 Response.Listener<String> { response ->
                     val jsonArray = JSONArray(response)
                     Log.e("Error", response)
-                    val supplier = ArrayList<SuppliersModel>()
                     for (i in 0 until jsonArray.length()) {
-                        supplier.add(
+                        suppliersArrayList.add(
                             SuppliersModel(
                                 jsonArray.getJSONObject(i).getString("firstname") + " " + jsonArray.getJSONObject(
                                     i
@@ -63,20 +67,37 @@ class SuppliersActivity : AppCompatActivity() {
                             )
                         )
                     }
-                    val suppliers: SuppliersAdapter
-                    val suppliersListView = findViewById<ListView>(R.id.suppliers_list)
-                    suppliers = SuppliersAdapter(applicationContext, supplier)
-                    suppliersListView.adapter = suppliers
 
-                    suppliersListView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+                    suppliersListView = findViewById<View>(R.id.suppliers_list) as ListView
+                    suppliers = SuppliersAdapter(this@SuppliersActivity)
+                    suppliersListView!!.adapter = suppliers
+
+                    // Locate the EditText in listview_main.xml
+                    editsearch = findViewById<View>(R.id.search) as SearchView
+                    editsearch!!.setOnQueryTextListener(this)
+
+                    suppliersListView!!.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
                         Toast.makeText(
                             applicationContext,
-                            supplier[position].invoiceNumber, Toast.LENGTH_LONG
+                            suppliersArrayList[position].invoiceNumber, Toast.LENGTH_LONG
                         ).show()
                     }
                 },
                 Response.ErrorListener { })
             queue.add(suppliersRecords)
         }
+    }
+
+    override fun onQueryTextSubmit(query: String): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String): Boolean {
+        suppliers!!.filter(newText)
+        return false
+    }
+
+    companion object {
+        var suppliersArrayList = ArrayList<SuppliersModel>()
     }
 }
