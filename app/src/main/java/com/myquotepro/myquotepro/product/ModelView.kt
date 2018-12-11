@@ -1,3 +1,3 @@
-package com.upkazi.hire
+package com.myquotepro.myquotepro.product
 
-class ModelView(var list_id: String, var list_title: String, var list_image: Int, var list_desc: String)
+class ModelView(var list_title: String, var amount_paid: String, var status: String, var unit_cost: String, var quantity: String)

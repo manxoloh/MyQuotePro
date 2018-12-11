@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(Intent(this@MainActivity, SuppliersActivity::class.java))
             }
             R.id.quotes -> {
-                startActivity(Intent(this@MainActivity, ImageUploadActivity::class.java))
+                startActivity(Intent(this@MainActivity, QuotesActivity::class.java))
             }
             R.id.payments -> {
                 startActivity(Intent(this@MainActivity, PaymentsActivity::class.java))
@@ -153,9 +153,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     companion object {
+        const val PICK_IMAGE_REQUEST = 99
         const val LOCATION_PERMISSION_REQUEST_CODE = 1
-        val RESULT_OK = -1
-        val REQ_SCAN_RESULT = 200
+        const val RESULT_OK = -1
+        const val REQ_SCAN_RESULT = 200
         const val REQ_CODE_SPEECH_INPUT = 100
         internal var searchInProgress = false
     }

@@ -5,22 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.ImageView
 import android.widget.TextView
 import com.myquotepro.myquotepro.R
-import com.upkazi.hire.ModelView
 
-class AdapterListview(context: Context, car: ArrayList<ModelView>) : BaseAdapter() {
+class AdapterListview(context: Context, quote: ArrayList<ModelView>) : BaseAdapter() {
 
     private val mInflator: LayoutInflater = LayoutInflater.from(context)
-    private val car: ArrayList<ModelView> = car
+    private val quote: ArrayList<ModelView> = quote
 
     override fun getCount(): Int {
-        return car.size
+        return quote.size
     }
 
     override fun getItem(position: Int): Any {
-        return car[position]
+        return quote[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -39,16 +37,20 @@ class AdapterListview(context: Context, car: ArrayList<ModelView>) : BaseAdapter
             daftar = view.tag as ListRowHolder
         }
 
-        daftar.title_item.text = car[position].list_title
-        daftar.desc_item.text = car[position].list_desc
-        daftar.image_item.setImageResource(car[position].list_image)
+        daftar.quoteTitle.text = quote[position].list_title
+        daftar.status.text = quote[position].status
+        daftar.amountPaid.text = quote[position].amount_paid
+        daftar.unitCost.text = quote[position].unit_cost
+        daftar.quantity.text = quote[position].quantity
         return view
     }
 }
 
 private class ListRowHolder(row: View?) {
-    val title_item: TextView = row?.findViewById(R.id.title_listview) as TextView
-    val desc_item: TextView = row?.findViewById(R.id.description_listview) as TextView
-    val image_item: ImageView = row?.findViewById(R.id.image_listview) as ImageView
+    val quoteTitle: TextView = row?.findViewById(R.id.quote_title) as TextView
+    val status: TextView = row?.findViewById(R.id.status) as TextView
+    val amountPaid: TextView = row?.findViewById(R.id.total_amount) as TextView
+    val unitCost: TextView = row?.findViewById(R.id.unit_cost) as TextView
+    val quantity: TextView = row?.findViewById(R.id.quantity) as TextView
 
 }

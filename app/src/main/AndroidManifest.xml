@@ -113,17 +113,16 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".MainActivity"/>
         </activity>
-        <activity android:name=".product.QuotesActivity">
+        <activity
+                android:name=".product.QuotesActivity"
+                android:label="@string/my_quotes">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".MainActivity"/>
         </activity>
-
-        <!-- This element is required in order to use the PaymentsClient -->
-        <meta-data
-                android:name="com.google.android.gms.wallet.api.enabled"
-                android:value="true"/>
-
         <activity
                 android:name=".payments.PaymentsActivity"
-                android:label="@string/credit_card_payment">
+                android:label="@string/my_payments">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".LoginActivity"/>
@@ -137,8 +136,15 @@
         </activity>
         <activity android:name=".util.ImageUploadActivity">
         </activity>
-        <activity android:name=".sessions.AccountActivity"
-                  android:label="@string/my_account">
+        <activity
+                android:name=".sessions.AccountActivity"
+                android:label="@string/my_account">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".MainActivity"/>
+        </activity>
+        <activity android:name=".payments.CreditCardActivity"
+                  android:label="@string/credit_card_payment">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".MainActivity"/>

@@ -53,4 +53,6 @@
     <string name="unit_cost">Unit Cost</string>
     <string name="total_amount">Total Amount</string>
     <string name="label_pay_now">Pay Now</string>
+    <string name="status">Status</string>
+    <string name="usertype">Usertype</string>
 </resources>

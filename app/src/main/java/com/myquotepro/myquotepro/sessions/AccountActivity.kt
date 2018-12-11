@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.myquotepro.myquotepro.MainActivity
 import com.myquotepro.myquotepro.R
+import kotlinx.android.synthetic.main.activity_account.*
 import kotlinx.android.synthetic.main.activity_product_details.*
 import org.json.JSONArray
 
@@ -35,17 +36,17 @@ class AccountActivity : AppCompatActivity() {
 
         if (!isConnected) {
             val snackbar =
-                Snackbar.make(findViewById(R.id.details), "You have no internet connection", Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(R.id.linear), "You have no internet connection", Snackbar.LENGTH_LONG)
                     .setAction("Action", null)
             snackbar.duration = 10000
             snackbar.setAction(R.string.connect_to_internet, MainActivity.EnableInternetConnection())
             snackbar.show()
         } else {
-            pd!!.setMessage("Processing ...")
+            pd!!.setMessage("Loading ...")
             pd!!.show()
 
             val queue = Volley.newRequestQueue(this)
-            val url: String = "http://18.235.150.50/myquotepro/api/products/product-details?id=$userId"
+            val url: String = "http://18.235.150.50/myquotepro/api/user/account?user_id=$userId"
 
             // Request a string response from the provided URL.
             val productDetails = StringRequest(
@@ -54,18 +55,14 @@ class AccountActivity : AppCompatActivity() {
                     pd!!.hide()
                     val jsonArray = JSONArray(response)
                     for (i in 0 until jsonArray.length()) {
-                        product_name.text = jsonArray.getJSONObject(i).getString("product_name")
-                        product_price.text = "KES " + jsonArray.getJSONObject(i).getString("price")
-                        delivery_terms.text = "FREE Delivery"
-                        product_status.text = "Available"
-                        remaining_stock.text = jsonArray.getJSONObject(i).getString("stock") + " Pieces Remaining"
-                        product_supplier.text = jsonArray.getJSONObject(i).getString("firstname") + " " +
+                        account_username.text = jsonArray.getJSONObject(i).getString("username")
+                        email_address.text = jsonArray.getJSONObject(i).getString("email")
+                        full_name.text = jsonArray.getJSONObject(i).getString("firstname") + " " +
                                 jsonArray.getJSONObject(i).getString("lastname")
-                        supplier_contact_phone.text = jsonArray.getJSONObject(i).getString("phone")
-                        supplier_location.text = jsonArray.getJSONObject(i).getString("location")
-                        product_more_details.text = "\u2022" + " " + jsonArray.getJSONObject(i).getString("description")
-                        val featuredImage = findViewById<ImageView>(R.id.featured_image)
-                        Glide.with(this).load(jsonArray.getJSONObject(i).getString("feature_image")).into(featuredImage)
+                        account_user_type.text = jsonArray.getJSONObject(i).getString("usertype")
+//                        product_more_details.text = "\u2022" + " " + jsonArray.getJSONObject(i).getString("description")
+//                        val featuredImage = findViewById<ImageView>(R.id.featured_image)
+//                        Glide.with(this).load(jsonArray.getJSONObject(i).getString("feature_image")).into(featuredImage)
                     }
                 },
                 Response.ErrorListener {
