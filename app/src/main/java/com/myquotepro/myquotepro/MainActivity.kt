@@ -1,11 +1,9 @@
 package com.myquotepro.myquotepro
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.speech.RecognizerIntent
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
 import android.support.v4.app.ActivityCompat
@@ -16,19 +14,16 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.myquotepro.myquotepro.payments.PaymentsActivity
 import com.myquotepro.myquotepro.product.AddProductActivity
 import com.myquotepro.myquotepro.product.QuotesActivity
+import com.myquotepro.myquotepro.search.SearchActivity
 import com.myquotepro.myquotepro.sessions.AccountActivity
 import com.myquotepro.myquotepro.sessions.UserSession
 import com.myquotepro.myquotepro.supplier.SuppliersActivity
-import com.myquotepro.myquotepro.util.ImageUploadActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
-import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -94,7 +89,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_search -> {
-                startActivity(Intent(this@MainActivity, SearchResultActivity::class.java))
+                startActivity(Intent(this@MainActivity, SearchActivity::class.java))
                 true
             }
             R.id.action_logout -> {

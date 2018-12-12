@@ -1,4 +1,4 @@
-package com.myquotepro.myquotepro.models
+package com.myquotepro.myquotepro.product
 
 class ProductsModel(
     var product_id: String,

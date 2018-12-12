@@ -21,7 +21,8 @@ class PaymentsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_payments)
 
         val queue = Volley.newRequestQueue(this)
-        val url: String = "http://18.235.150.50/myquotepro/api/user/payments?payee_id="+ UserSession(applicationContext).userDetails[UserSession.KEY_USERID]
+        val url: String =
+            "http://18.235.150.50/myquotepro/api/user/payments?payee_id=" + UserSession(applicationContext).userDetails[UserSession.KEY_USERID]
 
         // Request a string response from the provided URL.
         val paymentsRecords = StringRequest(Request.Method.GET, url,
@@ -29,13 +30,17 @@ class PaymentsActivity : AppCompatActivity() {
                 val jsonArray = JSONArray(response)
                 val payment = ArrayList<PaymentsModel>()
                 for (i in 0 until jsonArray.length()) {
-                    payment.add(PaymentsModel(jsonArray.getJSONObject(i).getString("payment_title"),
-                        jsonArray.getJSONObject(i).getString("payment_description"),
-                        jsonArray.getJSONObject(i).getString("payment_status"),
-                        jsonArray.getJSONObject(i).getString("payment_method"),
-                        "Ref: "+jsonArray.getJSONObject(i).getString("reference_token"),
-                        "Amount: KES "+jsonArray.getJSONObject(i).getString("amount_paid"),
-                        jsonArray.getJSONObject(i).getString("transaction_date")))
+                    payment.add(
+                        PaymentsModel(
+                            jsonArray.getJSONObject(i).getString("payment_title"),
+                            jsonArray.getJSONObject(i).getString("payment_description"),
+                            jsonArray.getJSONObject(i).getString("payment_status"),
+                            jsonArray.getJSONObject(i).getString("payment_method"),
+                            "Ref: " + jsonArray.getJSONObject(i).getString("reference_token"),
+                            "Amount: KES " + jsonArray.getJSONObject(i).getString("amount_paid"),
+                            jsonArray.getJSONObject(i).getString("transaction_date")
+                        )
+                    )
                 }
                 val payments: PaymentsAdapter
                 val paymentsListView = findViewById<ListView>(R.id.payment_list)
@@ -43,8 +48,10 @@ class PaymentsActivity : AppCompatActivity() {
                 paymentsListView.adapter = payments
 
                 paymentsListView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-                    Toast.makeText(applicationContext,
-                        payment[position].transactionCode, Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        applicationContext,
+                        payment[position].transactionCode, Toast.LENGTH_LONG
+                    ).show()
                 }
             },
             Response.ErrorListener { })

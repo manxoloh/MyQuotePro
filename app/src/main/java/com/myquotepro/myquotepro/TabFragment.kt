@@ -1,6 +1,5 @@
 package com.myquotepro.myquotepro
 
-import android.app.ProgressDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
@@ -13,13 +12,14 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.myquotepro.myquotepro.adapters.ProductsAdapter
-import com.myquotepro.myquotepro.models.ProductsModel
 import com.myquotepro.myquotepro.product.ProductDetailsActivity
+import com.myquotepro.myquotepro.product.ProductsAdapter
+import com.myquotepro.myquotepro.product.ProductsModel
 import com.myquotepro.myquotepro.search.SearchActivity
 import kotlinx.android.synthetic.main.fragment_tab.*
 import org.json.JSONArray
@@ -30,13 +30,13 @@ class TabFragment : Fragment() {
 
     internal var position: Int = 0
     internal var title: String? = null
-    private var pd: ProgressDialog? = null
+    private var pd: SweetAlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         position = arguments!!.getInt("pos") + 1
         title = arguments!!.getString("title")
-        pd = ProgressDialog(activity)
+        pd = SweetAlertDialog(activity, SweetAlertDialog.PROGRESS_TYPE)
     }
 
     override fun onCreateView(
@@ -48,7 +48,7 @@ class TabFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pd!!.setMessage("Loading...")
+        pd!!.contentText = "Loading"
         pd!!.show()
         val queue = Volley.newRequestQueue(activity)
         val url: String = "http://18.235.150.50/myquotepro/api/products/list?cat=$position"
@@ -106,6 +106,7 @@ class TabFragment : Fragment() {
             promptSpeechInput()
         }
     }
+
     /**
      * Showing google speech input dialog.
      */
@@ -128,6 +129,7 @@ class TabFragment : Fragment() {
         }
 
     }
+
     /**
      * Receiving speech input.
      *
@@ -135,7 +137,7 @@ class TabFragment : Fragment() {
      * @param resultCode  the result code
      * @param data        the data
      */
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         MainActivity.searchInProgress = false

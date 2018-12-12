@@ -17,7 +17,7 @@ class QuotesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_qoutes)
+        setContentView(R.layout.activity_quotes)
         val queue = Volley.newRequestQueue(this)
         val url: String = "http://18.235.150.50/myquotepro/api/products/quotes?customer_id=1"
 
@@ -31,10 +31,12 @@ class QuotesActivity : AppCompatActivity() {
                     quote.add(
                         ModelView(
                             jsonArray.getJSONObject(i).getString("product_name"),
-                            "Total: KES "+jsonArray.getJSONObject(i).getString("total_amount"),
-                            jsonArray.getJSONObject(i).getString("status") +" @ "+jsonArray.getJSONObject(i).getString("updated_at"),
-                            "Cost: KES "+jsonArray.getJSONObject(i).getString("unit_cost"),
-                            "Quantity: "+jsonArray.getJSONObject(i).getString("quantity")
+                            "Total: KES " + jsonArray.getJSONObject(i).getString("total_amount"),
+                            jsonArray.getJSONObject(i).getString("status") + " @ " + jsonArray.getJSONObject(i).getString(
+                                "updated_at"
+                            ),
+                            "Cost: KES " + jsonArray.getJSONObject(i).getString("unit_cost"),
+                            "Quantity: " + jsonArray.getJSONObject(i).getString("quantity")
                         )
                     )
                 }

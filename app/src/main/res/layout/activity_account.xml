@@ -12,7 +12,7 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/backgrd"
                 android:scaleType="centerCrop"
-                android:layout_marginBottom="25dp"/>
+                android:layout_marginBottom="25dp" android:contentDescription="TODO"/>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -34,7 +34,7 @@
                             android:layout_height="50dp"
                             android:src="@drawable/fb"
                             android:layout_gravity="center"
-                            android:gravity="bottom"/>
+                            android:gravity="bottom" android:contentDescription="TODO"/>
                     <TextView
                             android:layout_weight="1"
                             android:id="@+id/sin"
@@ -42,14 +42,14 @@
                             android:layout_height="match_parent"
                             android:text="456 Friends"
                             android:gravity="center"
-                            android:textSize="12dp"
+                            android:textSize="12sp"
                             android:textColor="#85ffffff"/>
                 </LinearLayout>
                 <ImageView
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:src="@drawable/meninblack"
-                        android:gravity="bottom"/>
+                        android:gravity="bottom" android:contentDescription="TODO"/>
                 <LinearLayout
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                             android:layout_height="50dp"
                             android:src="@drawable/twitter"
                             android:layout_gravity="center"
-                            android:gravity="bottom"/>
+                            android:gravity="bottom" android:contentDescription="TODO"/>
                     <TextView
                             android:gravity="center"
                             android:layout_weight="1"
@@ -71,7 +71,7 @@
                             android:layout_height="match_parent"
                             android:text="562 Followings"
                             android:layout_gravity="center"
-                            android:textSize="12dp"
+                            android:textSize="12sp"
                             android:textColor="#85ffffff"/>
                 </LinearLayout>
             </LinearLayout>
@@ -90,10 +90,10 @@
             <TextView
                     android:layout_weight="1"
                     android:id="@+id/name"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="@string/name"
                     android:textColor="#a2a1b8"
                     android:background="#0000"
                     android:padding="12dp"
@@ -101,7 +101,7 @@
             <TextView
                     android:layout_weight="1"
                     android:id="@+id/full_name"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColorHint="#181737"
@@ -122,10 +122,10 @@
             <TextView
                     android:layout_weight="1"
                     android:id="@+id/email"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email"
+                    android:text="@string/email"
                     android:textColor="#a2a1b8"
                     android:background="#0000"
                     android:padding="12dp"
@@ -133,7 +133,7 @@
             <TextView
                     android:layout_weight="1"
                     android:id="@+id/email_address"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColorHint="#1b193b"
@@ -154,7 +154,7 @@
             <TextView
                     android:layout_weight="1"
                     android:id="@+id/username"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/username"
@@ -165,7 +165,7 @@
             <TextView
                     android:layout_weight="1"
                     android:id="@+id/account_username"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColorHint="#1b193b"
@@ -187,10 +187,10 @@
             <TextView
                     android:layout_weight="1"
                     android:id="@+id/password"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Password"
+                    android:text="@string/password"
                     android:textColor="#a2a1b8"
                     android:maxLength="12"
                     android:background="#0000"
@@ -199,7 +199,7 @@
             <TextView
                     android:layout_weight="1"
                     android:id="@+id/account_password"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColorHint="#1b193b"
@@ -223,7 +223,7 @@
             <TextView
                     android:layout_weight="1"
                     android:id="@+id/status"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/status"
@@ -244,7 +244,7 @@
         <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#dad8d8" />
+                android:background="#dad8d8"/>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -252,7 +252,7 @@
             <TextView
                     android:layout_weight="1"
                     android:id="@+id/user_type"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/usertype"
@@ -264,7 +264,7 @@
             <TextView
                     android:layout_weight="1"
                     android:id="@+id/account_user_type"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColorHint="#181737"

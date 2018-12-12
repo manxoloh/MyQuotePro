@@ -1,21 +1,21 @@
 package com.myquotepro.myquotepro.search
 
 import android.app.ProgressDialog
-import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ListView
+import android.widget.SearchView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.myquotepro.myquotepro.MainActivity
 import com.myquotepro.myquotepro.R
-import com.myquotepro.myquotepro.adapters.ProductsAdapter
-import com.myquotepro.myquotepro.models.ProductsModel
+import com.myquotepro.myquotepro.product.ProductsModel
 import com.myquotepro.myquotepro.product.ProductDetailsActivity
 import kotlinx.android.synthetic.main.fragment_tab.*
 import org.json.JSONArray

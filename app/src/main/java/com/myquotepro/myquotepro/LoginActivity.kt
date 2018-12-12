@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
@@ -29,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var session: UserSession
     private var email: EditText? = null
     private var password: EditText? = null
-    private var pd: ProgressDialog? = null
+    private var pd: SweetAlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
         if (UserSession(applicationContext).isLoggedIn) {
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         } else {
-            pd = ProgressDialog(this@LoginActivity)
+
             // Get username, password from EditText
             email = findViewById(R.id.email)
             password = findViewById(R.id.password)
@@ -73,8 +74,9 @@ class LoginActivity : AppCompatActivity() {
                     snackbar.setAction(R.string.connect_to_internet, MainActivity.EnableInternetConnection())
                     snackbar.show()
                 } else {
-                    pd!!.setTitle("Authenticating")
-                    pd!!.setMessage("Attempting to login...")
+                    pd = SweetAlertDialog(this@LoginActivity, SweetAlertDialog.PROGRESS_TYPE)
+                    pd!!.titleText = "Authenticating"
+                    pd!!.contentText = "Attempting to login"
 
                     pd!!.show()
 
@@ -107,11 +109,15 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(i)
                                 finish()
 
-                                Toast.makeText(applicationContext, jsonObject.getString("message"), Toast.LENGTH_LONG)
-                                    .show()
+                                pd = SweetAlertDialog(this@LoginActivity, SweetAlertDialog.SUCCESS_TYPE)
+                                pd!!.titleText = "Success"
+                                pd!!.contentText = jsonObject.getString("message")
+                                pd!!.show()
                             } else {
-                                Toast.makeText(applicationContext, jsonObject.getString("message"), Toast.LENGTH_LONG)
-                                    .show()
+                                pd = SweetAlertDialog(this@LoginActivity, SweetAlertDialog.ERROR_TYPE)
+                                pd!!.titleText = "Error"
+                                pd!!.contentText = jsonObject.getString("message")
+                                pd!!.show()
                             }
 
 

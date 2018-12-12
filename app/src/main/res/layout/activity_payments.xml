@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-         xmlns:tools="http://schemas.android.com/tools"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         tools:context=".payments.PaymentsActivity"
-         tools:ignore="Overdraw">
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".payments.PaymentsActivity"
+        tools:ignore="Overdraw">
 
     <ListView
             android:id="@+id/payment_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:divider="@null" />
+            android:divider="@null"/>
 
 </android.support.constraint.ConstraintLayout>

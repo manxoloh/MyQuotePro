@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent" android:layout_height="match_parent"
               android:orientation="vertical">
 
@@ -26,7 +25,7 @@
                 android:textSize="15sp"
                 android:iconifiedByDefault="false">
 
-            <requestFocus />
+            <requestFocus/>
         </SearchView>
 
         <ImageButton
@@ -37,12 +36,12 @@
                 android:layout_marginTop="3dp"
                 android:background="@null"
                 android:scaleType="fitCenter"
-                android:src="@drawable/audial_search"/>
+                android:src="@drawable/audial_search" android:contentDescription="TODO"/>
     </RelativeLayout>
 
     <ListView
             android:id="@+id/products_search_list_view"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@+id/search" />
+            android:layout_below="@+id/search"/>
 </LinearLayout>

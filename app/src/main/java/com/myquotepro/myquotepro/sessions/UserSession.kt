@@ -122,14 +122,14 @@ class UserSession// Constructor
     companion object {
 
         // Sharedpref file name
-        private val PREF_NAME = "MyQuotePro"
+        private const val PREF_NAME = "MyQuotePro"
 
         // All Shared Preferences Keys
-        private val IS_LOGIN = "IsLoggedIn"
-        val KEY_NAME = "name"
-        val KEY_USER_TYPE = "userType"
-        val KEY_EMAIL = "email"
-        val KEY_PHONE = "phone"
-        val KEY_USERID = "userId"
+        private const val IS_LOGIN = "IsLoggedIn"
+        const val KEY_NAME = "name"
+        const val KEY_USER_TYPE = "userType"
+        const val KEY_EMAIL = "email"
+        const val KEY_PHONE = "phone"
+        const val KEY_USERID = "userId"
     }
 }

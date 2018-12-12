@@ -73,7 +73,7 @@ class RequestQuoteActivity : AppCompatActivity() {
                 Request.Method.POST, URL,
                 Response.Listener<String> { response ->
                     pd!!.hide()
-                    var success = JSONObject(response).getString("success")
+                    val success = JSONObject(response).getString("success")
                     if (Integer.valueOf(success) == 1) {
                         Toast.makeText(applicationContext, JSONObject(response).getString("message"), Toast.LENGTH_LONG)
                             .show()

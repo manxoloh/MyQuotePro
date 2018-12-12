@@ -14,6 +14,7 @@ import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.*
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
@@ -23,7 +24,6 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import com.myquotepro.myquotepro.MainActivity
 import com.myquotepro.myquotepro.R
 import com.myquotepro.myquotepro.sessions.UserSession
-import com.myquotepro.myquotepro.util.ImageUploadActivity
 import kotlinx.android.synthetic.main.activity_add_product.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -39,7 +39,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     private var stock: EditText? = null
     private var price: EditText? = null
     private var addProduct: Button? = null
-    private var pd: ProgressDialog? = null
+    private var pd: SweetAlertDialog? = null
     internal lateinit var bitmap: Bitmap
     private val URL = "http://18.235.150.50/myquotepro/api/products/add-product"
 
@@ -47,7 +47,6 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
         super.onCreate(savedInstanceState)
         Fresco.initialize(this)
         setContentView(R.layout.activity_add_product)
-        pd = ProgressDialog(this@AddProductActivity)
         productName = findViewById(R.id.product_name)
         description = findViewById(R.id.description)
         stock = findViewById(R.id.stock)
@@ -109,7 +108,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(
                 Intent.createChooser(intent, "Select Picture"),
-                ImageUploadActivity.PICK_IMAGE_REQUEST
+                MainActivity.PICK_IMAGE_REQUEST
             )
         }
     }
@@ -141,7 +140,8 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             snackbar.setAction(R.string.connect_to_internet, MainActivity.EnableInternetConnection())
             snackbar.show()
         } else {
-            pd!!.setMessage("Processing ...")
+            pd = SweetAlertDialog(this@AddProductActivity, SweetAlertDialog.PROGRESS_TYPE)
+            pd!!.contentText = "Processing ..."
 
             pd!!.show()
 
@@ -154,14 +154,17 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
             val postRequest = object : StringRequest(Request.Method.POST, URL,
                 Response.Listener<String> { response ->
                     pd!!.hide()
-                    var success = JSONObject(response).getString("success")
+                    val success = JSONObject(response).getString("success")
                     if (Integer.valueOf(success) == 1) {
-                        Toast.makeText(applicationContext, JSONObject(response).getString("message"), Toast.LENGTH_LONG)
-                            .show()
-                        startActivity(Intent(this@AddProductActivity, MainActivity::class.java))
+                        pd = SweetAlertDialog(this@AddProductActivity, SweetAlertDialog.SUCCESS_TYPE)
+                        pd!!.titleText = "Success"
+                        pd!!.contentText = JSONObject(response).getString("message")
+                        pd!!.show()
                     } else {
-                        Toast.makeText(applicationContext, JSONObject(response).getString("message"), Toast.LENGTH_LONG)
-                            .show()
+                        pd = SweetAlertDialog(this@AddProductActivity, SweetAlertDialog.ERROR_TYPE)
+                        pd!!.titleText = "Error"
+                        pd!!.contentText = JSONObject(response).getString("message")
+                        pd!!.show()
                     }
                 },
                 Response.ErrorListener {
@@ -202,7 +205,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == ImageUploadActivity.PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+        if (requestCode == MainActivity.PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
             val filePath = data.data
             try {
                 //Getting the Bitmap from Gallery
@@ -216,6 +219,7 @@ class AddProductActivity : AppCompatActivity(), AdapterView.OnItemSelectedListen
 
         }
     }
+
     fun getStringImage(bitmap: Bitmap): String {
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)

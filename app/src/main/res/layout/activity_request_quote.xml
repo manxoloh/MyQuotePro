@@ -33,7 +33,7 @@
                         android:hint="@string/product_name"
                         android:inputType="textPersonName"
                         android:maxLines="1"
-                        android:singleLine="true"/>
+                        android:singleLine="true" android:autofillHints=""/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -49,7 +49,7 @@
                         android:hint="@string/quantity"
                         android:inputType="textPersonName"
                         android:maxLines="1"
-                        android:singleLine="true"/>
+                        android:singleLine="true" android:autofillHints=""/>
 
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -64,7 +64,7 @@
                         android:hint="@string/unit_cost"
                         android:inputType="numberDecimal"
                         android:maxLines="1"
-                        android:singleLine="true"/>
+                        android:singleLine="true" android:autofillHints=""/>
 
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
@@ -79,7 +79,7 @@
                         android:hint="@string/total_amount"
                         android:inputType="numberDecimal"
                         android:maxLines="1"
-                        android:singleLine="true"/>
+                        android:singleLine="true" android:autofillHints=""/>
 
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout

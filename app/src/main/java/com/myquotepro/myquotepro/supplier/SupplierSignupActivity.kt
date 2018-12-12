@@ -158,7 +158,7 @@ class SupplierSignupActivity : AppCompatActivity() {
                 Request.Method.POST, URL,
                 Response.Listener<String> { response ->
                     pd!!.hide()
-                    var success = JSONObject(response).getString("success")
+                    val success = JSONObject(response).getString("success")
                     if (Integer.valueOf(success) == 1) {
                         makePayment(JSONObject(response).getString("user"))
                         //performSTKPush(phone?.text.toString())
@@ -252,7 +252,7 @@ class SupplierSignupActivity : AppCompatActivity() {
         pd!!.show()
 
         val requestQueue = Volley.newRequestQueue(this@SupplierSignupActivity)
-        val url: String = "http://18.235.150.50/myquotepro/api/user/payment?payee_id=1"
+        val url: String = "http://18.235.150.50/myquotepro/api/user/payment?payee_id=$payee_id"
 
         // Request a string response from the provided URL.
         val requestQuote = StringRequest(

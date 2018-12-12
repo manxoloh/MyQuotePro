@@ -23,7 +23,6 @@
     <string name="share">Share</string>
 
     <string name="search_hint">What are you looking for?</string>
-    <string name="daily_promotions">Daily promotions</string>
     <string name="coming_soon">Coming Soon</string>
     <string name="connect_to_internet">Connect</string>
     <string name="product_name">Product Name</string>
@@ -32,7 +31,7 @@
     <string name="price">Price</string>
     <string name="add_product">Add Product</string>
     <string name="product_category">Category</string>
-    <string name="password">password</string>
+    <string name="password">Password</string>
     <string name="signup">Signup</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
@@ -55,4 +54,5 @@
     <string name="label_pay_now">Pay Now</string>
     <string name="status">Status</string>
     <string name="usertype">Usertype</string>
+    <string name="name">Name</string>
 </resources>

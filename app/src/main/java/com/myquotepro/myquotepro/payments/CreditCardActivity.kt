@@ -10,7 +10,6 @@ import android.widget.Toast
 import com.braintreepayments.cardform.view.CardForm
 import com.myquotepro.myquotepro.R
 import kotlinx.android.synthetic.main.activity_credit_card.*
-import kotlinx.android.synthetic.main.activity_payments.*
 
 
 class CreditCardActivity : AppCompatActivity() {

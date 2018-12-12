@@ -6,17 +6,14 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.widget.ImageView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.bumptech.glide.Glide
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.myquotepro.myquotepro.MainActivity
 import com.myquotepro.myquotepro.R
 import kotlinx.android.synthetic.main.activity_account.*
-import kotlinx.android.synthetic.main.activity_product_details.*
 import org.json.JSONArray
 
 class AccountActivity : AppCompatActivity() {

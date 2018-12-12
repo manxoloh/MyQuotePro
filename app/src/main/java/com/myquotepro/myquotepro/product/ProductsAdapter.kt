@@ -1,6 +1,5 @@
-package com.myquotepro.myquotepro.adapters
+package com.myquotepro.myquotepro.product
 
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.myquotepro.myquotepro.R
-import com.myquotepro.myquotepro.models.ProductsModel
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.AsyncTask
-import android.util.Log
-import android.os.AsyncTask.execute
-import com.squareup.picasso.Picasso
 
 
 class ProductsAdapter(context: Context, product: ArrayList<ProductsModel>) : BaseAdapter() {
