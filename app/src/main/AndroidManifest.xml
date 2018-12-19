@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.myquotepro.myquotepro">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -21,12 +22,12 @@
 
     <application
             android:allowBackup="true"
-            tools:replace="android:icon"
             android:icon="@mipmap/ic_launcher_bag"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            tools:replace="android:icon">
         <activity
                 android:name=".LoginActivity"
                 android:screenOrientation="portrait"
@@ -122,11 +123,26 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".MainActivity"/>
         </activity>
-        <activity android:name=".payments.CreditCardActivity"
-                  android:label="@string/credit_card_payment">
+        <activity
+                android:name=".payments.CreditCardActivity"
+                android:label="@string/credit_card_payment">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".MainActivity"/>
+        </activity>
+        <activity
+                android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+                android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="com.myquotepro.myquotepro.braintree"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".payments.BrainTreeActivity">
         </activity>
     </application>
 
